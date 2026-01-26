@@ -1,0 +1,16 @@
+﻿<Window x:Class="TradingBook.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TradingBook" Height="220" Width="450">
+    <StackPanel Margin="20">
+        <Button Content="Leggi dal DB"
+                Command="{Binding ReadStatusCommand}"
+                Height="30"
+                Margin="0,0,0,10"/>
+
+        <TextBlock Text="{Binding ResultText}" FontSize="16" Margin="0,0,0,10"/>
+
+        <TextBlock Text="Caricamento..."
+                   Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+    </StackPanel>
+</Window>
