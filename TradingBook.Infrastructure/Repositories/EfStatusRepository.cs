@@ -1,27 +1,25 @@
-﻿using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using TradingBook.ApplicationLayer.Repositories;
 using TradingBook.Infrastructure.Persistence;
 
-namespace TradingBook.Infrastructure.Repositories
+namespace TradingBook.Infrastructure.Repositories;
+
+public sealed class EfStatusRepository : IStatusRepository
 {
-    public sealed class EfStatusRepository : IStatusRepository
+    private readonly IDbContextFactory<TradingBookDbContext> _dbContextFactory;
+
+    public EfStatusRepository(IDbContextFactory<TradingBookDbContext> dbContextFactory)
     {
-        private readonly DbContextOptions<TradingBookDbContext> _options;
+        _dbContextFactory = dbContextFactory;
+    }
 
-        public EfStatusRepository(DbContextOptions<TradingBookDbContext> options)
-        {
-            _options = options;
-        }
+    public async Task<string> GetStatusTextAsync()
+    {
+        await using var db = await _dbContextFactory.CreateDbContextAsync();
+        var row = await db.AppInfo.SingleOrDefaultAsync(x => x.Id == 1);
 
-        public async Task<string> GetStatusTextAsync()
-        {
-            using var db = new TradingBookDbContext(_options);
-            var row = await db.AppInfo.SingleOrDefaultAsync(x => x.Id == 1);
-
-            return row?.StatusText ?? string.Empty;
-        }
-
+        return row?.StatusText ?? string.Empty;
     }
 
 }
