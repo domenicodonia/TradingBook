@@ -1,13 +1,14 @@
 ﻿using TradingBook.UI.ViewModels;
 using System.Windows;
 
-namespace TradingBook.UI.Views
+namespace TradingBook.UI.Views;
+
+public partial class MainWindow : Window
 {
-    public partial class MainWindow : Window
+    public MainWindow(MainViewModel viewModel)
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+        DataContext = viewModel;
     }
+
 }
