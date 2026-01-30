@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TradingBook.Infrastructure.Persistence;
 
@@ -10,9 +11,11 @@ using TradingBook.Infrastructure.Persistence;
 namespace TradingBook.Infrastructure.Migrations
 {
     [DbContext(typeof(TradingBookDbContext))]
-    partial class TradingBookDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260130150219_InitialDomainModel")]
+    partial class InitialDomainModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.23");
